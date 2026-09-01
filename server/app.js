@@ -6,6 +6,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 
+// here is a change 
+
 app.use(express.static(join(__dirname, '../public')));
 
 // app.get('/', (req, res) => {
@@ -17,7 +19,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/whatever', (req, res) => {
-  res.send('Hello World whatever')
+  res.send('Hello World whatever autochange')
 })
 
 app.listen(3000, () => {
