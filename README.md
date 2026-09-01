@@ -1,5 +1,5 @@
 # my generic web app framework 
-> [dev project] charlie
+> [dev project] <del>charlie</del> golf. 
 
 # deployments
 
