@@ -1,0 +1,26 @@
+{
+  "name": "fullstack-brain-bucket",
+  "version": "1.0.0",
+  "description": "> [dev project] charlie",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sclary2001/fullstack-brain-bucket.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/sclary2001/fullstack-brain-bucket/issues"
+  },
+  "homepage": "https://github.com/sclary2001/fullstack-brain-bucket#readme",
+  "dependencies": {
+    "dotenv": "^18.0.3",
+    "express": "^5.2.1",
+    "mongodb": "^7.6.0"
+  }
+}
