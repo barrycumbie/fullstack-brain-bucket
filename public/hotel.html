@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+  <title>
+    hotel #
+  </title>
+</head>
+<body>
+  <h1>
+    client → server
+  </h1>
+  <button id="getData">
+    get data
+  </button>
+
+  <pre id="output"></pre>
+
+  <script>
+
+    document
+      .querySelector('#getData')
+      .addEventListener(
+        'click',
+        getData
+      );
+
+    async function getData() {
+
+      const response =
+        await fetch(
+          '/api/hello'
+        );
+
+      const data =
+        await response.json();
+
+      document
+        .querySelector('#output')
+        .textContent =
+          JSON.stringify(
+            data,
+            null,
+            2
+          );
+
+    }
+
+  </script>
+
+</body>
+
+</html>
