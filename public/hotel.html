@@ -48,7 +48,7 @@
   </script>
 
   <hr> 
-  <h1>iss5. client sends data</h1>
+  <h1>iss05. client sends data</h1>
 
    <button id="postData">post data</button>
 
@@ -88,6 +88,54 @@
 }
 </script> 
 
+
+  <hr>
+  <h1>iss07. seed & clear data</h1>
+  <br>
+  <button id="seedBtn">seed database</button>
+  <button id="clearBtn">clear database</button>
+
+<p id="message"></p>
+
+<script>
+const message = document.querySelector('#message');
+
+document
+  .querySelector('#seedBtn')
+  .addEventListener('click', seedDatabase);
+
+document
+  .querySelector('#clearBtn')
+  .addEventListener('click', clearDatabase);
+
+
+function seedDatabase() {
+
+  fetch('/api/dev/seed', {
+    method: 'POST'
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      message.textContent = 'database seeded 🌱';
+    });
+
+}
+
+
+function clearDatabase() {
+
+  fetch('/api/dev/clear', {
+    method: 'DELETE'
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      message.textContent = 'database cleared 🗑️';
+    });
+
+}
+</script>
 </body>
 
 </html>
