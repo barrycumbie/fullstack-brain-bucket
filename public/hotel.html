@@ -229,6 +229,41 @@
 
   </div>
 
+  <div id="iss10">
+    <h1>iss10. filter</h1>
+
+    <label for="category">Category:</label>
+    <input id="category" placeholder="one">
+
+    <button id="getFilter">Filter</button>
+
+    <pre id="output10"></pre>
+    <script>
+
+      document
+        .querySelector('#getFilter')
+        .addEventListener('click', getItems);
+
+      async function getItems() {
+
+        const category =
+          document.querySelector('#category').value;
+
+        const url =
+          `/api/items?category=${category}`;
+
+        const response =
+          await fetch(url);
+
+        const data =
+          await response.json();
+
+        document.querySelector('#output10').textContent =
+          JSON.stringify(data, null, 2);
+      }
+    </script>
+
+  </div>
 </body>
 
 </html>
