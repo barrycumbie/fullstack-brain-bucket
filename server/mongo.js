@@ -5,6 +5,7 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 import express from 'express'
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import {  ObjectId } from 'mongodb';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -79,6 +80,26 @@ app.get('/api/items', async function(req, res) {
 
   }
 );
+
+//iss09. get one
+app.get('/api/items/:id', async function(req, res) {
+
+    const id =
+      new ObjectId(
+        req.params.id
+      );
+
+    const record =
+      await collection
+        .findOne({
+          _id: id
+        });
+
+    res.json(record);
+
+  }
+);
+
 //start POST endpoints
 app.post('/api/students', function (req, res) {
   console.log(req.body);

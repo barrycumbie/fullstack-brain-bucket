@@ -1,180 +1,233 @@
 <!doctype html>
 <html>
+
 <head>
   <title>
     hotel 4
   </title>
 </head>
+
 <body>
-  <h1>
-    iss04: client → server
-  </h1>
-  <button id="getData">
-    get data
-  </button>
+  <div id="iss01">
+    <h1>
+      iss04: client → server
+    </h1>
+    <button id="getData">
+      get data
+    </button>
 
-  <pre id="output04"></pre>
+    <pre id="output04"></pre>
 
-   <script>
-
-    document
-      .querySelector('#getData')
-      .addEventListener(
-        'click',
-        getData
-      );
-
-    async function getData() {
-
-      const response =
-        await fetch(
-          '/api/hello'
-        );
-
-      const data =
-        await response.json();
+    <script>
 
       document
-        .querySelector('#output04')
-        .textContent =
+        .querySelector('#getData')
+        .addEventListener(
+          'click',
+          getData
+        );
+
+      async function getData() {
+
+        const response =
+          await fetch(
+            '/api/hello'
+          );
+
+        const data =
+          await response.json();
+
+        document
+          .querySelector('#output04')
+          .textContent =
           JSON.stringify(
             data,
             null,
             2
           );
 
-    }
-
-  </script>
-
-  <hr> 
-  <h1>iss05. client sends data</h1>
-
-   <button id="postData">post data</button>
-
-  <script> 
-
-  document.querySelector('#postData').addEventListener('click', sendData);
-
-  async function sendData() {
-
-  const student = {
-    name: 'Lasagna',
-    major: 'CIS'
-  };
-
-  const response =
-    await fetch(
-      '/api/students',
-      {
-        method:
-          'POST',
-        headers: {
-          'Content-Type':
-            'application/json'
-        },
-        body:
-          JSON.stringify(
-            student
-          )
       }
-    );
 
-  const data =
-    await response.json();
+    </script>
+  </div>
 
-  console.log(data);
+  <div id="iss02">
+    <hr>
+    <h1>iss05. client sends data</h1>
 
-}
-</script> 
+    <button id="postData">post data</button>
 
+    <script>
 
-  <hr>
-  <h1>iss07. seed & clear data</h1>
-  <br>
-  <button id="seedBtn">seed database</button>
-  <button id="clearBtn">clear database</button>
+      document.querySelector('#postData').addEventListener('click', sendData);
 
-<p id="message07"></p>
+      async function sendData() {
 
-<script>
-const message07 = document.querySelector('#message');
+        const student = {
+          name: 'Lasagna',
+          major: 'CIS'
+        };
 
-document
-  .querySelector('#seedBtn')
-  .addEventListener('click', seedDatabase);
+        const response =
+          await fetch(
+            '/api/students',
+            {
+              method:
+                'POST',
+              headers: {
+                'Content-Type':
+                  'application/json'
+              },
+              body:
+                JSON.stringify(
+                  student
+                )
+            }
+          );
 
-document
-  .querySelector('#clearBtn')
-  .addEventListener('click', clearDatabase);
+        const data =
+          await response.json();
 
+        console.log(data);
 
-function seedDatabase() {
+      }
+    </script>
 
-  fetch('/api/dev/seed', {
-    method: 'POST'
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      message07.textContent = 'database seeded 🌱';
-    });
+  </div>
 
-}
+  <div id="iss07">
+    <hr>
+    <h1>iss07. seed & clear data</h1>
+    <br>
+    <button id="seedBtn">seed database</button>
+    <button id="clearBtn">clear database</button>
 
+    <p id="message07"></p>
 
-function clearDatabase() {
-
-  fetch('/api/dev/clear', {
-    method: 'DELETE'
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      message07.textContent = 'database cleared 🗑️';
-    });
-
-}
-</script>
-
-
-<h1>iss08. read all</h1>
-
-  <button id="getAll"> get all</button>
-
-  <pre id="output08"></pre>
-
-  <script>
-
-    document
-      .querySelector('#getAll')
-      .addEventListener(
-        'click',
-        getAll
-      );
-
-    async function getAll() {
-
-      const response =
-        await fetch(
-          '/api/items'
-        );
-
-      const data =
-        await response.json();
+    <script>
+      const message07 = document.querySelector('#message');
 
       document
-        .querySelector('#output08')
-        .textContent =
+        .querySelector('#seedBtn')
+        .addEventListener('click', seedDatabase);
+
+      document
+        .querySelector('#clearBtn')
+        .addEventListener('click', clearDatabase);
+
+
+      function seedDatabase() {
+
+        fetch('/api/dev/seed', {
+          method: 'POST'
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            message07.textContent = 'database seeded 🌱';
+          });
+
+      }
+
+
+      function clearDatabase() {
+
+        fetch('/api/dev/clear', {
+          method: 'DELETE'
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            message07.textContent = 'database cleared 🗑️';
+          });
+
+      }
+    </script>
+
+  </div>
+
+  <div id="iss08">
+    <h1>iss08. read all</h1>
+
+    <button id="getAll"> get all</button>
+
+    <pre id="output08"></pre>
+
+    <script>
+
+      document
+        .querySelector('#getAll')
+        .addEventListener(
+          'click',
+          getAll
+        );
+
+      async function getAll() {
+
+        const response =
+          await fetch(
+            '/api/items'
+          );
+
+        const data =
+          await response.json();
+
+        document
+          .querySelector('#output08')
+          .textContent =
           JSON.stringify(
             data,
             null,
             2
           );
 
-    }
+      }
 
-  </script>
+    </script>
+  </div>
+
+  <div id="iss09">
+    <h1>iss09. get one</h1>
+    <input id="aRealId">
+    <button id="getOne">get one</button>
+    <pre id="output09"></pre>
+
+
+    <script>
+
+      document.querySelector('#getOne').addEventListener(
+        'click',
+        getOne
+      );
+
+      async function getOne() {
+
+        const id = document.querySelector('#aRealId').value;
+
+        const response =
+          await fetch(
+            `/api/items/${id}`
+          );
+
+        const data =
+          await response.json();
+
+        document
+          .querySelector('#output09')
+          .textContent =
+          JSON.stringify(
+            data,
+            null, // replacer: don't filter or modify anything
+            2 // space: pretty-print with 2-space indentation
+          );
+
+      };
+
+    </script>
+
+
+
+  </div>
 
 </body>
 
