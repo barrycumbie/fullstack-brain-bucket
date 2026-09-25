@@ -234,9 +234,7 @@
 
     <label for="category">Category:</label>
     <input id="category" placeholder="one">
-
     <button id="getFilter">Filter</button>
-
     <pre id="output10"></pre>
     <script>
 
@@ -263,6 +261,37 @@
       }
     </script>
 
+
+  </div>
+
+  <div id="iss11">
+    <h1>iss11. create item</h1>
+    <button id="createItem">create item</button>
+    <pre id="output11"></pre>
+
+    <script>
+
+      document.querySelector('#createItem').addEventListener('click', createItem);
+
+      async function createItem() {
+
+        const newItem = {
+          name: 'delta',
+          category: 'three'
+        };
+
+        const response = await fetch('/api/items', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newItem)
+        });
+
+        const data = await response.json();
+
+        document.querySelector('#output11').textContent =
+          JSON.stringify(data, null, 2);
+      }
+    </script>
   </div>
 </body>
 

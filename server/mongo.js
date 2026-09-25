@@ -69,6 +69,7 @@ app.get('/api/hello', function (req, res) {
 );
 
 //iss08, get all items. 
+//iss10 in here also, refactored this endpoint for all or filtered itemss
 app.get('/api/items', async function (req, res) {
 
   //iss10 stuff
@@ -115,7 +116,12 @@ app.get('/api/items/:id', async function (req, res) {
 }
 );
 
-
+//iss 11, notice post to slash api/items != get to slash of same name
+app.post('/api/items', async function(req, res) {
+    const newItem = req.body;
+    const result = await collection.insertOne(newItem);
+    res.status(201).json(result);
+});
 
 app.post('/api/students', function (req, res) {
   console.log(req.body);
