@@ -13,7 +13,7 @@
     get data
   </button>
 
-  <pre id="output"></pre>
+  <pre id="output04"></pre>
 
    <script>
 
@@ -35,7 +35,7 @@
         await response.json();
 
       document
-        .querySelector('#output')
+        .querySelector('#output04')
         .textContent =
           JSON.stringify(
             data,
@@ -95,10 +95,10 @@
   <button id="seedBtn">seed database</button>
   <button id="clearBtn">clear database</button>
 
-<p id="message"></p>
+<p id="message07"></p>
 
 <script>
-const message = document.querySelector('#message');
+const message07 = document.querySelector('#message');
 
 document
   .querySelector('#seedBtn')
@@ -117,7 +117,7 @@ function seedDatabase() {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      message.textContent = 'database seeded 🌱';
+      message07.textContent = 'database seeded 🌱';
     });
 
 }
@@ -131,11 +131,51 @@ function clearDatabase() {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      message.textContent = 'database cleared 🗑️';
+      message07.textContent = 'database cleared 🗑️';
     });
 
 }
 </script>
+
+
+<h1>iss08. read all</h1>
+
+  <button id="getAll"> get all</button>
+
+  <pre id="output08"></pre>
+
+  <script>
+
+    document
+      .querySelector('#getAll')
+      .addEventListener(
+        'click',
+        getAll
+      );
+
+    async function getAll() {
+
+      const response =
+        await fetch(
+          '/api/items'
+        );
+
+      const data =
+        await response.json();
+
+      document
+        .querySelector('#output08')
+        .textContent =
+          JSON.stringify(
+            data,
+            null,
+            2
+          );
+
+    }
+
+  </script>
+
 </body>
 
 </html>

@@ -67,6 +67,18 @@ app.get('/api/hello', function (req, res) {
 }
 );
 
+//iss08, get all items. 
+app.get('/api/items', async function(req, res) {
+
+    const records =
+      await collection
+        .find({})
+        .toArray();
+
+    res.json(records);
+
+  }
+);
 //start POST endpoints
 app.post('/api/students', function (req, res) {
   console.log(req.body);
@@ -78,6 +90,7 @@ app.post('/api/students', function (req, res) {
 }
 );
 
+//iss07 seed & clear 
 app.post('/api/dev/seed', async function(req, res) {
     const result =
       await collection
