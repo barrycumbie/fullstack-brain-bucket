@@ -144,6 +144,17 @@ app.post('/api/dev/seed', async function (req, res) {
 }
 );
 
+
+//iss12 
+app.patch('/api/items/:id',
+  async function(req, res) {
+    const id = new ObjectId(req.params.id);
+    const changes = req.body;
+    const result = await collection
+        .updateOne({ _id: id }, { $set: changes });
+    res.json(result);
+});
+
 app.delete('/api/dev/clear', async function (req, res) {
 
   const result =

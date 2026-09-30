@@ -293,6 +293,40 @@
       }
     </script>
   </div>
+
+  <div class="iss12">
+
+    <h1>iss12. update category</h1>
+    <input id="updatedId" placeholder="paste an id here"> 
+    <input id="newCategory" placeholder="new category">
+    <button id="updateCategory">update category</button>
+    <pre id="output12"></pre>
+
+    <script>
+      document.querySelector('#updateCategory').addEventListener('click', updateCategory);
+
+      async function updateCategory() {
+        const category = document.querySelector('#newCategory').value || 'new category'; 
+        const changes = { category: `${ category }` };
+        const id = document.querySelector('#updatedId').value; 
+        await fetch(`/api/items/${id}`,
+          {
+            method:
+              'PATCH',
+            headers: {
+              'Content-Type':
+                'application/json'
+            },
+            body:
+              JSON.stringify(
+                changes
+              )
+          }
+        )
+      };
+    </script>
+
+  </div>
 </body>
 
 </html>
