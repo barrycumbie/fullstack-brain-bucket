@@ -143,6 +143,14 @@ app.post('/api/dev/seed', async function (req, res) {
   res.json(result);
 }
 );
+//clear it all 
+app.delete('/api/dev/clear', async function (req, res) {
+  const result =
+    await collection
+      .deleteMany({});
+  res.json(result);
+}
+);
 
 
 //iss12 
@@ -155,18 +163,17 @@ app.patch('/api/items/:id',
     res.json(result);
 });
 
-app.delete('/api/dev/clear', async function (req, res) {
+//iss13
+app.delete('/api/items/:id',
+  async function(req, res) {
+    const id = new ObjectId(req.params.id);
+    const result = await collection.deleteOne({ _id: id });
+    res.json(result);
+});
 
-  const result =
-    await collection
-      .deleteMany({});
 
-  res.json(result);
-
-}
-);
 //start up server
 
 app.listen(5500, () => {
   console.log('Server is running on http://localhost:5500')
-})
+}); 

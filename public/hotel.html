@@ -297,7 +297,7 @@
   <div class="iss12">
 
     <h1>iss12. update category</h1>
-    <input id="updatedId" placeholder="paste an id here"> 
+    <input id="updatedId" placeholder="paste an id here">
     <input id="newCategory" placeholder="new category">
     <button id="updateCategory">update category</button>
     <pre id="output12"></pre>
@@ -306,25 +306,45 @@
       document.querySelector('#updateCategory').addEventListener('click', updateCategory);
 
       async function updateCategory() {
-        const category = document.querySelector('#newCategory').value || 'new category'; 
-        const changes = { category: `${ category }` };
-        const id = document.querySelector('#updatedId').value; 
-        await fetch(`/api/items/${id}`,
+        const category = document.querySelector('#newCategory').value || 'new category';
+        const changes = { category: `${category}` };
+        const id = document.querySelector('#updatedId').value;
+       
+        const response = await fetch(`/api/items/${id}`,
           {
-            method:
-              'PATCH',
-            headers: {
-              'Content-Type':
-                'application/json'
-            },
-            body:
-              JSON.stringify(
-                changes
-              )
-          }
-        )
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(changes)
+          });
+
+        const data = await response.json();
+
+        document.querySelector('#output12').textContent =
+          JSON.stringify(data, null, 2);
+      };
+
+
+    </script>
+
+  </div>
+
+  <div id="iss13">
+    <h1>iss13. delete one</h1>
+    <input id="deleteId" placeholder="paste an id here">
+    <button id="deleteItem">delete item</button>
+    <pre id="output13"></pre>
+
+    <script>
+      document.querySelector('#deleteItem').addEventListener('click', deleteItem);
+
+      async function deleteItem() {
+        const id = document.querySelector('#deleteId').value;
+         const response = await fetch(`/api/items/${id}`, { method: 'DELETE' });
+        const data = await response.json();
+        document.querySelector('#output13').textContent = JSON.stringify(data, null, 2);
       };
     </script>
+
 
   </div>
 </body>
