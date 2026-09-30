@@ -163,7 +163,7 @@ app.patch('/api/items/:id',
     res.json(result);
 });
 
-//iss13
+//iss20
 app.delete('/api/items/:id',
   async function(req, res) {
     const id = new ObjectId(req.params.id);
