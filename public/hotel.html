@@ -309,7 +309,7 @@
         const category = document.querySelector('#newCategory').value || 'new category';
         const changes = { category: `${category}` };
         const id = document.querySelector('#updatedId').value;
-
+       
         const response = await fetch(`/api/items/${id}`,
           {
             method: 'PATCH',
