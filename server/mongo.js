@@ -6,6 +6,7 @@ import express from 'express'
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { ObjectId } from 'mongodb';
+import bcrypt from 'bcrypt';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -25,6 +26,7 @@ const client = new MongoClient(uri, {
 });
 const db = client.db('hotel');
 const collection = db.collection('items');
+
 
 const seedData = [
   { name: 'alpha', category: 'one' },
@@ -171,6 +173,21 @@ app.delete('/api/items/:id',
     res.json(result);
 });
 
+//iss15...
+app.post('/api/create-account', async function(req,res) {
+
+const passwordHash = await bcrypt.hash(req.body.password, 10);
+
+const result = await db.collection('users').insertOne({
+  username: req.body.username,
+  email: req.body.email,
+  passwordHash: passwordHash,
+  role: 'user'
+});
+
+res.json(result); 
+
+}); 
 
 //start up server
 
