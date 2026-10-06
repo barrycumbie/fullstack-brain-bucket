@@ -339,12 +339,70 @@
 
       async function deleteItem() {
         const id = document.querySelector('#deleteId').value;
+
          const response = await fetch(`/api/items/${id}`, { method: 'DELETE' });
         const data = await response.json();
         document.querySelector('#output13').textContent = JSON.stringify(data, null, 2);
       };
     </script>
 
+
+  </div>
+
+
+  <div id="iss15">
+<h1>issue 15</h1>
+    <pre>
+username
+email
+password
+<pre>
+<button id="createAccount">create acct</button>
+<pre id="output15"></pre>
+
+
+    <script>
+      // stole from iss 2 
+
+      document.querySelector('#createAccount').addEventListener('click', sendData);
+
+      async function sendData() {
+
+        const acct = {
+          "username": "bcumbie",
+          "email": "bcumbie@example.com",
+          "password": "tacos123"
+        };
+
+        const response =
+          await fetch(
+            '/api/create-account',
+            {
+              method:
+                'POST',
+              headers: {
+                'Content-Type':
+                  'application/json'
+              },
+              body:
+                JSON.stringify(
+                  acct
+                )
+            }
+          );
+
+        const data =
+          await response.json();
+
+        console.log(data);
+
+        document.querySelector('#output12').textContent =
+          JSON.stringify(data, null, 2);
+
+      }
+
+
+    </script>
 
   </div>
 </body>
