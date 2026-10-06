@@ -3,11 +3,15 @@
 
 # deployments
 
-- dev server: https://barrycumbie.github.io/charlie-brain-bucket/
-- video production server: http://34.174.66.159
-
-reference this [gist](https://gist.github.com/barrycumbie/36fff4083f20439615e1ed7811f81a3c)
-
+- production app: https://brain.barrycumbie.com 
+- production server ip: `8.234.41.172`
+- dev app: https://fullstack-brain-bucket-bpdo.onrender.com
+- dev server: render.com 
+- docs app: https://barrycumbie.github.io/fullstack-brain-bucket/
+- docs server: docs/readme todo: put in this link
+- codebase: https://github.com/barrycumbie/fullstack-brain-bucket
+  
+<del>
 ## sprint 99 / future dev ideas
 
 - check out this [milestone](https://github.com/barrycumbie/charlie-brain-bucket/milestone/1) for future dev ideas 
@@ -28,3 +32,4 @@ reference this [gist](https://gist.github.com/barrycumbie/36fff4083f20439615e1ed
 └── README.md
 ```
 
+</del> 

@@ -339,7 +339,8 @@
 
       async function deleteItem() {
         const id = document.querySelector('#deleteId').value;
-        const response = await fetch(`/api/items/${id}`, { method: 'DELETE' });
+
+         const response = await fetch(`/api/items/${id}`, { method: 'DELETE' });
         const data = await response.json();
         document.querySelector('#output13').textContent = JSON.stringify(data, null, 2);
       };
