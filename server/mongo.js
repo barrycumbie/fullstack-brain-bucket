@@ -11,7 +11,7 @@ import bcrypt from 'bcrypt';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
-const uri = process.env.MONGO_URI;
+const uri = process.env.MONGODB_URI;
 
 app.use(express.static(join(__dirname, '../public')));
 app.use(express.json());
