@@ -192,24 +192,6 @@ res.json(result);
 //start up server
 
 
-const PORT = process.env.PORT || 5500;
-
-async function startServer() {
-  try {
-    await client.connect();
-
-    await client.db('admin').command({ ping: 1 });
-
-    console.log('Connected to MongoDB Atlas');
-
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Server is listening on port ${PORT}`);
-    });
-  } catch (error) {
-    console.error('Failed to start server:', error);
-    process.exit(1);
-  }
-}
-
-startServer();
-
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000')
+}); 
