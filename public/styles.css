@@ -248,4 +248,11 @@ button:hover {
   .game-info h2 {
     font-size: 17px;
   }
+  
+  .game-id {
+  color: #94a3b8;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  margin: 5px 0;
+}
 }

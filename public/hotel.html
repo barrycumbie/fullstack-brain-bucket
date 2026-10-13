@@ -186,8 +186,9 @@ function displayGames(games, outputId) {
       row.appendChild(image);
     }
 
-    const info = document.createElement('div');
-    info.className = 'game-info';
+const id = document.createElement('p');
+id.className = 'game-id';
+id.textContent = `ID: ${game._id}`;
 
     const title = document.createElement('h2');
     title.textContent = game.title || 'Untitled game';
@@ -201,7 +202,7 @@ function displayGames(games, outputId) {
     rating.className = 'game-rating';
     rating.textContent = `Rating: ${game.rating ?? 'N/A'}/10`;
 
-    info.append(title, details, rating);
+    info.append(title, id, details, rating);
     row.appendChild(info);
     output.appendChild(row);
   });
