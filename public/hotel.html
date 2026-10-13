@@ -232,8 +232,8 @@
   <div id="iss10">
     <h1>iss10. filter</h1>
 
-    <label for="category">Category:</label>
-    <input id="category" placeholder="one">
+    <label for="platform">Platform:</label>
+    <input id="platform" placeholder="one">
     <button id="getFilter">Filter</button>
     <pre id="output10"></pre>
     <script>
@@ -244,11 +244,11 @@
 
       async function getItems() {
 
-        const category =
-          document.querySelector('#category').value;
+        const platform =
+          document.querySelector('#platform').value;
 
         const url =
-          `/api/games?category=${category}`;
+          `/api/games?platform=${platform}`;
 
         const response =
           await fetch(url);
