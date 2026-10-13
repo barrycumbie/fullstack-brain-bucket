@@ -100,7 +100,7 @@ app.get('/api/games', async function (req, res) {
 );
 
 //iss09. get one
-app.get('/api/games/:id', async function (req, res) {
+app.get('/api/games/:title', async function (req, res) {
 
   const title =
       req.params.title;
