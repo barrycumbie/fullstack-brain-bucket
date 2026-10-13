@@ -10,11 +10,22 @@ body {
   color: #e5e7eb;
   background-color: #0b1120;
   min-height: 100vh;
+
+  /* Background image */
+background-image:
+linear-gradient(rgba(5, 10, 25, 0.75), rgba(5, 10, 25, 0.85)),
+url("/images/game-background.jpg");
+
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+
 }
 
 /* ===== Page title ===== */
 body::before {
-  content: "GAME VAULT";
+  content: "GAME Collection";
   display: block;
   margin: 0 auto 30px;
   color: #60a5fa;
@@ -248,7 +259,7 @@ button:hover {
   .game-info h2 {
     font-size: 17px;
   }
-  
+
   .game-id {
   color: #94a3b8;
   font-size: 12px;
