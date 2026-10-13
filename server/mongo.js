@@ -103,14 +103,12 @@ app.get('/api/games', async function (req, res) {
 app.get('/api/games/:id', async function (req, res) {
 
   const id =
-    new ObjectId(
-      req.params.id
-    );
+      req.params.title;
 
   const record =
     await collection
       .findOne({
-        _id: id
+        _id: title
       });
 
   res.json(record);
