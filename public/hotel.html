@@ -166,7 +166,7 @@
 
         const response =
           await fetch(
-            '/api/items'
+            '/api/games'
           );
 
         const data =
@@ -206,7 +206,7 @@
 
         const response =
           await fetch(
-            `/api/items/${id}`
+            `/api/games/${id}`
           );
 
         const data =
@@ -248,7 +248,7 @@
           document.querySelector('#category').value;
 
         const url =
-          `/api/items?category=${category}`;
+          `/api/games?category=${category}`;
 
         const response =
           await fetch(url);
@@ -276,11 +276,13 @@
       async function createItem() {
 
         const newItem = {
-          name: 'delta',
-          category: 'three'
+          title: 'Super Smash Bros Ultimate',
+          platform: 'Nintendo Switch',
+          genre: 'Platform Fighter',
+          rating: 10
         };
 
-        const response = await fetch('/api/items', {
+        const response = await fetch('/api/games', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newItem)

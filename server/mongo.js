@@ -25,13 +25,13 @@ const client = new MongoClient(uri, {
   }
 });
 const db = client.db('hotel');
-const collection = db.collection('items');
+const collection = db.collection('games');
 
 
 const seedData = [
-  { name: 'alpha', category: 'one' },
-  { name: 'bravo', category: 'two' },
-  { name: 'charlie', category: 'one' }
+  { title: 'Halo 3', platform: 'Xbox 360', genre: 'FPS', rating: 9.5 },
+  { title: 'Persona 5 royale', platform: 'PlayStation 5', genre: 'RPG', rating: 10.0 },
+  { title: 'Mario Odyssey', platform: 'Nintendo Switch', genre: 'Platformer', rating: 9.0 }
 ];
 
 
@@ -72,18 +72,18 @@ app.get('/api/hello', function (req, res) {
 
 //iss08, get all items. 
 //iss10 in here also, refactored this endpoint for all or filtered itemss
-app.get('/api/items', async function (req, res) {
+app.get('/api/games', async function (req, res) {
 
   //iss10 stuff
   
-  const category = req.query.category;
+  const platform = req.query.platform;
 
-  // console.log('iss10 category.', category);
+  // console.log('iss10 platform.', platform);
 
   const filter =
-    category
+    platform
       ? {
-        category: category
+        platform: platform 
       }
       : {};
   //end iss10 new stuff
@@ -100,7 +100,7 @@ app.get('/api/items', async function (req, res) {
 );
 
 //iss09. get one
-app.get('/api/items/:id', async function (req, res) {
+app.get('/api/games/:id', async function (req, res) {
 
   const id =
     new ObjectId(
@@ -118,8 +118,8 @@ app.get('/api/items/:id', async function (req, res) {
 }
 );
 
-//iss 11, notice post to slash api/items != get to slash of same name
-app.post('/api/items', async function(req, res) {
+//iss 11, notice post to slash api/games != get to slash of same name
+app.post('/api/games', async function(req, res) {
     const newItem = req.body;
     const result = await collection.insertOne(newItem);
     res.status(201).json(result);
@@ -156,7 +156,7 @@ app.delete('/api/dev/clear', async function (req, res) {
 
 
 //iss12 
-app.patch('/api/items/:id',
+app.patch('/api/games/:id',
   async function(req, res) {
     const id = new ObjectId(req.params.id);
     const changes = req.body;
@@ -166,7 +166,7 @@ app.patch('/api/items/:id',
 });
 
 //iss20
-app.delete('/api/items/:id',
+app.delete('/api/games/:id',
   async function(req, res) {
     const id = new ObjectId(req.params.id);
     const result = await collection.deleteOne({ _id: id });
