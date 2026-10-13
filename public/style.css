@@ -1,0 +1,201 @@
+
+/* General page styling */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  color: #e5e7eb;
+  background: #0b1120;
+}
+
+/* Main heading */
+body::before {
+  content: "GAME VAULT";
+  display: block;
+  margin-bottom: 8px;
+  color: #60a5fa;
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+/* Issue 7: top-left corner */
+#iss07 {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 230px;
+  padding: 15px;
+  background: #172338;
+  border: 1px solid #334155;
+  border-radius: 10px;
+}
+
+#iss07 hr {
+  display: none;
+}
+
+#iss07 h1 {
+  font-size: 16px;
+}
+
+/* Centered issue sections */
+#iss08,
+#iss09,
+#iss10,
+.iss12,
+#iss13,
+#iss11 {
+  max-width: 850px;
+  margin: 25px auto;
+  padding: 20px;
+  background: #172338;
+  border: 1px solid #334155;
+  border-radius: 10px;
+}
+
+#iss08,
+#iss09,
+#iss10,
+.iss12,
+#iss13 {
+  text-align: center;
+}
+
+/* Headings */
+h1 {
+  color: #93c5fd;
+  font-size: 21px;
+}
+
+/* Inputs */
+input {
+  max-width: 100%;
+  padding: 10px;
+  margin: 5px;
+  color: white;
+  background: #0b1120;
+  border: 1px solid #475569;
+  border-radius: 6px;
+}
+
+input:focus {
+  outline: 2px solid #3b82f6;
+}
+
+/* Buttons */
+button {
+  padding: 10px 15px;
+  margin: 5px;
+  color: white;
+  background: #2563eb;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #3b82f6;
+}
+
+#clearBtn,
+#deleteItem {
+  background: #b91c1c;
+}
+
+/* Database output */
+pre {
+  padding: 15px;
+  overflow-x: auto;
+  color: #bfdbfe;
+  background: #0b1120;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  text-align: left;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Create game form */
+#gameForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#gameForm input {
+  width: 100%;
+  margin: 0;
+}
+
+#gameForm button {
+  align-self: flex-start;
+}
+
+/* Mobile screens */
+@media (max-width: 700px) {
+  body {
+    padding: 15px;
+  }
+
+  #iss07 {
+    position: static;
+    width: 100%;
+    margin-bottom: 25px;
+  }
+
+  #iss08,
+  #iss09,
+  #iss10,
+  .iss12,
+  #iss13,
+  #iss11 {
+    width: 100%;
+    padding: 15px;
+  }
+
+  /* Simple game list, not cards */
+.game-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid #334155;
+  text-align: left;
+}
+
+.game-image {
+  width: 110px;
+  height: 145px;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+.game-info h2 {
+  color: #93c5fd;
+  margin-top: 0;
+}
+
+.game-info p {
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+@media (max-width: 500px) {
+  .game-row {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .game-image {
+    width: 80px;
+    height: 110px;
+  }
+
+}
+}
