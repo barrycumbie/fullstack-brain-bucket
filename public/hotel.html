@@ -2,10 +2,10 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="/styles.css">
   <title>
     hotel 4
   </title>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
@@ -157,39 +157,55 @@
     <script>
 
           // Add this function first
-    function displayGames(games, outputId) {
-      const output = document.querySelector(outputId);
-      output.replaceChildren();
 
-      games.forEach(game => {
-        const row = document.createElement('div');
-        row.className = 'game-row';
+function displayGames(games, outputId) {
+  const output = document.querySelector(outputId);
+  output.replaceChildren();
 
-        const image = document.createElement('img');
-        image.src = game.image || '';
-        image.alt = game.title + ' cover';
-        image.className = 'game-image';
+  if (!Array.isArray(games)) {
+    games = games ? [games] : [];
+  }
 
-        const info = document.createElement('div');
-        info.className = 'game-info';
+  if (games.length === 0) {
+    output.textContent = 'No games found.';
+    return;
+  }
 
-        const title = document.createElement('h2');
-        title.textContent = game.title;
+  games.forEach(game => {
+    const row = document.createElement('div');
+    row.className = 'game-row';
 
-        const details = document.createElement('p');
-        details.textContent =
-          `Platform: ${game.platform} | Genre: ${game.genre} | Rating: ${game.rating}/10`;
+    if (game.image) {
+      const image = document.createElement('img');
+      image.src = game.image;
+      image.alt = `${game.title} cover`;
+      image.className = 'game-image';
 
-        info.append(title, details);
+      image.onerror = () => image.remove();
 
-        if (game.image) {
-          row.append(image, info);
-        } else {
-          row.append(info);
-        }
+      row.appendChild(image);
+    }
 
-        output.appendChild(row);
-      });
+    const info = document.createElement('div');
+    info.className = 'game-info';
+
+    const title = document.createElement('h2');
+    title.textContent = game.title || 'Untitled game';
+
+    const details = document.createElement('p');
+    details.textContent =
+      `Platform: ${game.platform || 'Unknown'} | ` +
+      `Genre: ${game.genre || 'Unknown'}`;
+
+    const rating = document.createElement('p');
+    rating.className = 'game-rating';
+    rating.textContent = `Rating: ${game.rating ?? 'N/A'}/10`;
+
+    info.append(title, details, rating);
+    row.appendChild(info);
+    output.appendChild(row);
+  });
+
     }
 
       document
@@ -226,7 +242,7 @@
 
   <div id="iss09">
     <h1>iss09. get one</h1>
-    <input id="aRealId" placeholder="Paste an id here">
+    <input id="aRealId" placeholder="Enter game title here">
     <button id="getOne">get one</button>
     <pre id="output09"></pre>
 
@@ -238,26 +254,22 @@
         getOne
       );
 
-      async function getOne() {
+async function getOne() {
+  const title = document.querySelector('#aRealId').value.trim();
 
-        const id = document.querySelector('#aRealId').value;
+  const response = await fetch(
+    `/api/games/${encodeURIComponent(title)}`
+  );
 
-        const response =
-          await fetch(
-            `/api/games/${id}`
-          );
+  const data = await response.json();
 
-        const data =
-          await response.json();
+  if (!response.ok || !data) {
+    document.querySelector('#output09').textContent =
+      'Game not found.';
+    return;
+  }
 
-        document
-          .querySelector('#output09')
-          .textContent =
-          JSON.stringify(
-            data,
-            null, // replacer: don't filter or modify anything
-            2 // space: pretty-print with 2-space indentation
-          );
+  displayGames(data, '#output09');
 
       };
 
@@ -370,7 +382,8 @@
           title: document.querySelector('#gameTitle').value.trim(),
           platform: document.querySelector('#gamePlatform').value.trim(),
           genre: document.querySelector('#gameGenre').value.trim(),
-          rating: Number(document.querySelector('#gameRating').value)
+          rating: Number(document.querySelector('#gameRating').value),
+          image: document.querySelector('#gameImage').value.trim()
         };
 
         try {
