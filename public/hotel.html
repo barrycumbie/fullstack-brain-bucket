@@ -175,39 +175,51 @@ function displayGames(games, outputId) {
     const row = document.createElement('div');
     row.className = 'game-row';
 
+    // Game cover image
     if (game.image) {
       const image = document.createElement('img');
       image.src = game.image;
-      image.alt = `${game.title} cover`;
+      image.alt = `${game.title || 'Game'} cover`;
       image.className = 'game-image';
-
       image.onerror = () => image.remove();
 
       row.appendChild(image);
     }
 
-const id = document.createElement('p');
-id.className = 'game-id';
-id.textContent = `ID: ${game._id}`;
+    // Game information container
+    const info = document.createElement('div');
+    info.className = 'game-info';
 
+    // Game title
     const title = document.createElement('h2');
     title.textContent = game.title || 'Untitled game';
 
+    // MongoDB ID
+    const id = document.createElement('p');
+    id.className = 'game-id';
+    id.textContent = `ID: ${game._id || 'Not available'}`;
+
+    // Platform and genre
     const details = document.createElement('p');
     details.textContent =
       `Platform: ${game.platform || 'Unknown'} | ` +
       `Genre: ${game.genre || 'Unknown'}`;
 
+    // Rating
     const rating = document.createElement('p');
     rating.className = 'game-rating';
     rating.textContent = `Rating: ${game.rating ?? 'N/A'}/10`;
 
+    // Add all information to the container
     info.append(title, id, details, rating);
+
+    // Add the container to the game row
     row.appendChild(info);
+
+    // Add the game row to the output
     output.appendChild(row);
   });
-
-    }
+}
 
       document
         .querySelector('#getAll')
