@@ -156,6 +156,42 @@
 
     <script>
 
+          // Add this function first
+    function displayGames(games, outputId) {
+      const output = document.querySelector(outputId);
+      output.replaceChildren();
+
+      games.forEach(game => {
+        const row = document.createElement('div');
+        row.className = 'game-row';
+
+        const image = document.createElement('img');
+        image.src = game.image || '';
+        image.alt = game.title + ' cover';
+        image.className = 'game-image';
+
+        const info = document.createElement('div');
+        info.className = 'game-info';
+
+        const title = document.createElement('h2');
+        title.textContent = game.title;
+
+        const details = document.createElement('p');
+        details.textContent =
+          `Platform: ${game.platform} | Genre: ${game.genre} | Rating: ${game.rating}/10`;
+
+        info.append(title, details);
+
+        if (game.image) {
+          row.append(image, info);
+        } else {
+          row.append(info);
+        }
+
+        output.appendChild(row);
+      });
+    }
+
       document
         .querySelector('#getAll')
         .addEventListener(
@@ -173,14 +209,15 @@
         const data =
           await response.json();
 
-        document
-          .querySelector('#output08')
-          .textContent =
-          JSON.stringify(
-            data,
-            null,
-            2
-          );
+          displayGames(data, '#output08');
+        // document
+        //   .querySelector('#output08')
+        //   .textContent =
+        //   JSON.stringify(
+        //     data,
+        //     null,
+        //     2
+        //   );
 
       }
 
