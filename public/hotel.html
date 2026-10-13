@@ -292,23 +292,17 @@ async function getOne() {
         .querySelector('#getFilter')
         .addEventListener('click', getItems);
 
-      async function getItems() {
+async function getItems() {
+  const platform = document.querySelector('#platform').value.trim();
 
-        const platform =
-          document.querySelector('#platform').value;
+  const response = await fetch(
+    `/api/games?platform=${encodeURIComponent(platform)}`
+  );
 
-        const url =
-          `/api/games?platform=${platform}`;
+  const data = await response.json();
 
-        const response =
-          await fetch(url);
-
-        const data =
-          await response.json();
-
-        document.querySelector('#output10').textContent =
-          JSON.stringify(data, null, 2);
-      }
+  displayGames(data, '#output10');
+}
     </script>
 
 
@@ -425,25 +419,33 @@ async function getOne() {
     <pre id="output12"></pre>
 
     <script>
-      document.querySelector('#updateGenre').addEventListener('click', updateGenre);
+document.querySelector('#updateCategory')
+  .addEventListener('click', updateGenre);
 
-      async function updateGenre() {
-        const genre = document.querySelector('#newGenre').value || 'new genre';
-        const changes = { genre: `${genre}` };
-        const id = document.querySelector('#updatedId').value;
-       
-        const response = await fetch(`/api/items/${id}`,
-          {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(changes)
-          });
+async function updateGenre() {
+  const id = document.querySelector('#updatedId').value.trim();
+  const genre = document.querySelector('#newCategory').value.trim();
+  const output = document.querySelector('#output12');
 
-        const data = await response.json();
+  try {
+    const response = await fetch(`/api/games/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ genre })
+    });
 
-        document.querySelector('#output12').textContent =
-          JSON.stringify(data, null, 2);
-      };
+    const data = await response.json();
+
+    if (!response.ok || data.matchedCount === 0) {
+      output.textContent = 'Game not found. Genre was not updated.';
+      return;
+    }
+
+    output.textContent = '✅ Game genre updated successfully!';
+  } catch (error) {
+    output.textContent = '❌ Error updating game genre.';
+  }
+};
 
 
     </script>
@@ -457,14 +459,30 @@ async function getOne() {
     <pre id="output13"></pre>
 
     <script>
-      document.querySelector('#deleteItem').addEventListener('click', deleteItem);
+document.querySelector('#deleteItem')
+  .addEventListener('click', deleteItem);
 
-      async function deleteItem() {
-        const id = document.querySelector('#deleteId').value;
-        const response = await fetch(`/api/items/${id}`, { method: 'DELETE' });
-        const data = await response.json();
-        document.querySelector('#output13').textContent = JSON.stringify(data, null, 2);
-      };
+async function deleteItem() {
+  const id = document.querySelector('#deleteId').value.trim();
+  const output = document.querySelector('#output13');
+
+  try {
+    const response = await fetch(`/api/games/${id}`, {
+      method: 'DELETE'
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || data.deletedCount === 0) {
+      output.textContent = 'Game not found. Nothing was deleted.';
+      return;
+    }
+
+    output.textContent = '✅ Game deleted successfully!';
+  } catch (error) {
+    output.textContent = '❌ Error deleting game.';
+  }
+};
     </script>
 
 
