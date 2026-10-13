@@ -108,7 +108,7 @@ app.get('/api/games/:id', async function (req, res) {
   const record =
     await collection
       .findOne({
-        _id: title
+        title: title
       });
 
   res.json(record);
