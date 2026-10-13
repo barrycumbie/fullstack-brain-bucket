@@ -399,6 +399,7 @@ async function getItems() {
             headers: {
               'Content-Type': 'application/json'
             },
+            body: JSON.stringify(newGame)
           });
 
           const data = await response.json();
