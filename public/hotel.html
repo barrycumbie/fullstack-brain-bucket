@@ -264,37 +264,100 @@
 
   </div>
 
-  <div id="iss11">
-    <h1>iss11. create item</h1>
-    <button id="createItem">create item</button>
-    <pre id="output11"></pre>
+```html
+<div id="iss11">
+  <h1>Create a Video Game</h1>
 
-    <script>
+  <form id="gameForm">
+    <label for="gameTitle">Game Title:</label>
+    <input
+      id="gameTitle"
+      type="text"
+      placeholder="Enter game title"
+      required
+    >
 
-      document.querySelector('#createItem').addEventListener('click', createItem);
+    <br><br>
 
-      async function createItem() {
+    <label for="gamePlatform">Platform:</label>
+    <input
+      id="gamePlatform"
+      type="text"
+      placeholder="e.g. Nintendo Switch"
+      required
+    >
 
-        const newItem = {
-          title: 'Super Smash Bros Ultimate',
-          platform: 'Nintendo Switch',
-          genre: 'Platform Fighter',
-          rating: 10
+    <br><br>
+
+    <label for="gameGenre">Genre:</label>
+    <input
+      id="gameGenre"
+      type="text"
+      placeholder="e.g. RPG"
+      required
+    >
+
+    <br><br>
+
+    <label for="gameRating">Rating (0-10):</label>
+    <input
+      id="gameRating"
+      type="number"
+      min="0"
+      max="10"
+      step="0.1"
+      placeholder="e.g. 9.5"
+      required
+    >
+
+    <br><br>
+
+    <button type="submit">Add Game</button>
+  </form>
+
+  <pre id="output11"></pre>
+
+  <script>
+    document.querySelector('#gameForm')
+      .addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const newGame = {
+          title: document.querySelector('#gameTitle').value.trim(),
+          platform: document.querySelector('#gamePlatform').value.trim(),
+          genre: document.querySelector('#gameGenre').value.trim(),
+          rating: Number(document.querySelector('#gameRating').value)
         };
 
-        const response = await fetch('/api/games', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newItem)
-        });
+        try {
+          const response = await fetch('/api/games', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newGame)
+          });
 
-        const data = await response.json();
+          const data = await response.json();
 
-        document.querySelector('#output11').textContent =
-          JSON.stringify(data, null, 2);
-      }
-    </script>
-  </div>
+          if (!response.ok) {
+            throw new Error(data.error || 'Failed to add game');
+          }
+
+          document.querySelector('#output11').textContent =
+            'Game added successfully!\n' +
+            JSON.stringify(data, null, 2);
+
+          document.querySelector('#gameForm').reset();
+
+        } catch (error) {
+          document.querySelector('#output11').textContent =
+            'Error: ' + error.message;
+        }
+      });
+  </script>
+</div>
+```
 
   <div class="iss12">
 
@@ -333,7 +396,7 @@
   <div id="iss20">
     <h1>iss13. delete one</h1>
     <input id="deleteId" placeholder="paste an id here">
-    <button id="deleteItem">delete item</button>
+    <button id="deleteItem">delete game</button>
     <pre id="output13"></pre>
 
     <script>
