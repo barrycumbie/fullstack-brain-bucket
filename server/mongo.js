@@ -29,7 +29,7 @@ const collection = db.collection('games');
 
 
 const seedData = [
-  { title: 'Halo 3', platform: 'Xbox 360', genre: 'FPS', rating: 9.5 },
+  { title: 'Halo 3', platform: 'Xbox 360', genre: 'FPS', rating: 9.5, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShh_jyuI7EXWuqrKOTeEE0NWupL5W9Tav6srKezP5MLA&s=10' },
   { title: 'Persona 5 royale', platform: 'PlayStation 5', genre: 'RPG', rating: 10.0 },
   { title: 'Mario Odyssey', platform: 'Nintendo Switch', genre: 'Platformer', rating: 9.0 }
 ];
