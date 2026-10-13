@@ -8,7 +8,6 @@ body {
   padding: 25px;
   font-family: Arial, Helvetica, sans-serif;
   color: #e5e7eb;
-  background-color: #0b1120;
   min-height: 100vh;
 
   /* Background image */
@@ -28,8 +27,8 @@ body::before {
   content: "GAME Collection";
   display: block;
   margin: 0 auto 30px;
-  color: #60a5fa;
-  font-size: 32px;
+  color: #8800f7;
+  font-size: 58px;
   font-weight: bold;
   letter-spacing: 4px;
   text-align: center;
@@ -42,7 +41,7 @@ body::before {
   left: 15px;
   width: 230px;
   padding: 15px;
-  background: #172338;
+  background: #1302ff;
   border: 1px solid #334155;
   border-radius: 12px;
   z-index: 2;
@@ -68,8 +67,8 @@ body::before {
   max-width: 850px;
   margin: 25px auto;
   padding: 22px;
-  background-color: #172338;
-  border: 1px solid #334155;
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 1px solid #4000a7;
   border-radius: 12px;
 }
 
@@ -83,12 +82,12 @@ body::before {
 
 /* ===== Headings ===== */
 h1 {
-  color: #93c5fd;
-  font-size: 21px;
+  color: #00109c;
+  font-size: 31px;
 }
 
 h2 {
-  color: #93c5fd;
+  color: #280072;
 }
 
 /* ===== Inputs ===== */
@@ -97,8 +96,8 @@ input {
   padding: 11px;
   margin: 5px;
   color: #ffffff;
-  background-color: #0b1120;
-  border: 1px solid #475569;
+  background-color: #000000;
+  border: 1px solid #56009c;
   border-radius: 6px;
 }
 
@@ -107,15 +106,15 @@ input::placeholder {
 }
 
 input:focus {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid #1411bd;
 }
 
 /* ===== Buttons ===== */
 button {
   padding: 10px 15px;
   margin: 5px;
-  color: #ffffff;
-  background-color: #2563eb;
+  color: #0804fa;
+  background-color: #000000;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -123,7 +122,7 @@ button {
 }
 
 button:hover {
-  background-color: #3b82f6;
+  background-color: #4100d8;
 }
 
 #clearBtn,
