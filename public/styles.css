@@ -41,7 +41,7 @@ body::before {
   left: 15px;
   width: 230px;
   padding: 15px;
-  background: #1302ff;
+  background: #000000;
   border: 1px solid #334155;
   border-radius: 12px;
   z-index: 2;
@@ -82,7 +82,7 @@ body::before {
 
 /* ===== Headings ===== */
 h1 {
-  color: #00109c;
+  color: #24309b;
   font-size: 31px;
 }
 
