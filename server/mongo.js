@@ -25,13 +25,13 @@ const client = new MongoClient(uri, {
   }
 });
 const db = client.db('hotel');
-const collection = db.collection('items');
+const collection = db.collection('games');
 
 
 const seedData = [
-  { name: 'alpha', category: 'one' },
-  { name: 'bravo', category: 'two' },
-  { name: 'charlie', category: 'one' }
+  { title: 'Halo 3', platform: 'Xbox 360', genre: 'FPS', rating: 9.5, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShh_jyuI7EXWuqrKOTeEE0NWupL5W9Tav6srKezP5MLA&s=10' },
+  { title: 'Persona 5 royale', platform: 'PlayStation 5', genre: 'RPG', rating: 10.0, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1N_SM_4UwoKl73gDMvFChcnrxh5EifcgGxe-96r7k8w&s=10'},
+  { title: 'Mario Odyssey', platform: 'Nintendo Switch', genre: 'Platformer', rating: 9.0, image: 'https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/store/software/switch/70010000001130/c42553b4fd0312c31e70ec7468c6c9bccd739f340152925b9600631f2d29f8b5' }
 ];
 
 
@@ -72,18 +72,18 @@ app.get('/api/hello', function (req, res) {
 
 //iss08, get all items. 
 //iss10 in here also, refactored this endpoint for all or filtered itemss
-app.get('/api/items', async function (req, res) {
+app.get('/api/games', async function (req, res) {
 
   //iss10 stuff
   
-  const category = req.query.category;
+  const platform = req.query.platform;
 
-  // console.log('iss10 category.', category);
+  // console.log('iss10 platform.', platform);
 
   const filter =
-    category
+    platform
       ? {
-        category: category
+        platform: platform 
       }
       : {};
   //end iss10 new stuff
@@ -100,17 +100,15 @@ app.get('/api/items', async function (req, res) {
 );
 
 //iss09. get one
-app.get('/api/items/:id', async function (req, res) {
+app.get('/api/games/:title', async function (req, res) {
 
-  const id =
-    new ObjectId(
-      req.params.id
-    );
+  const title =
+      req.params.title;
 
   const record =
     await collection
       .findOne({
-        _id: id
+        title: title
       });
 
   res.json(record);
@@ -118,8 +116,8 @@ app.get('/api/items/:id', async function (req, res) {
 }
 );
 
-//iss 11, notice post to slash api/items != get to slash of same name
-app.post('/api/items', async function(req, res) {
+//iss 11
+app.post('/api/games', async function(req, res) {
     const newItem = req.body;
     const result = await collection.insertOne(newItem);
     res.status(201).json(result);
@@ -156,7 +154,7 @@ app.delete('/api/dev/clear', async function (req, res) {
 
 
 //iss12 
-app.patch('/api/items/:id',
+app.patch('/api/games/:id',
   async function(req, res) {
     const id = new ObjectId(req.params.id);
     const changes = req.body;
@@ -166,7 +164,7 @@ app.patch('/api/items/:id',
 });
 
 //iss20
-app.delete('/api/items/:id',
+app.delete('/api/games/:id',
   async function(req, res) {
     const id = new ObjectId(req.params.id);
     const result = await collection.deleteOne({ _id: id });
@@ -191,6 +189,7 @@ res.json(result);
 
 //start up server
 
-app.listen(5500, () => {
-  console.log('Server is running on http://localhost:5500')
+
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000')
 }); 

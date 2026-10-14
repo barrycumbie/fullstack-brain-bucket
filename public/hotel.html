@@ -5,10 +5,11 @@
   <title>
     hotel 4
   </title>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
-  <div id="iss01">
+  <!-- <div id="iss01">
     <h1>
       iss04: client → server
     </h1>
@@ -49,9 +50,9 @@
       }
 
     </script>
-  </div>
+  </div> -->
 
-  <div id="iss02">
+  <!-- <div id="iss02">
     <hr>
     <h1>iss05. client sends data</h1>
 
@@ -93,11 +94,11 @@
       }
     </script>
 
-  </div>
+  </div> -->
 
   <div id="iss07">
     <hr>
-    <h1>iss07. seed & clear data</h1>
+    <h1>Default Game Collection</h1>
     <br>
     <button id="seedBtn">seed database</button>
     <button id="clearBtn">clear database</button>
@@ -147,13 +148,74 @@
   </div>
 
   <div id="iss08">
-    <h1>iss08. read all</h1>
+    <h1>All Games</h1>
 
-    <button id="getAll"> get all</button>
+    <button id="getAll"> get all games</button>
 
     <pre id="output08"></pre>
 
     <script>
+
+
+function displayGames(games, outputId) {
+  const output = document.querySelector(outputId);
+  output.replaceChildren();
+
+  if (!Array.isArray(games)) {
+    games = games ? [games] : [];
+  }
+
+  if (games.length === 0) {
+    output.textContent = 'No games found.';
+    return;
+  }
+
+  games.forEach(game => {
+    const row = document.createElement('div');
+    row.className = 'game-row';
+
+    // game picture
+    if (game.image) {
+      const image = document.createElement('img');
+      image.src = game.image;
+      image.alt = `${game.title || 'Game'} cover`;
+      image.className = 'game-image';
+      image.onerror = () => image.remove();
+
+      row.appendChild(image);
+    }
+
+    // game info
+    const info = document.createElement('div');
+    info.className = 'game-info';
+
+    // game title
+    const title = document.createElement('h2');
+    title.textContent = game.title || 'Untitled game';
+
+    // game ID
+    const id = document.createElement('p');
+    id.className = 'game-id';
+    id.textContent = `ID: ${game._id || 'Not available'}`;
+
+    // game platform and genre
+    const details = document.createElement('p');
+    details.textContent =
+      `Platform: ${game.platform || 'Unknown'} | ` +
+      `Genre: ${game.genre || 'Unknown'}`;
+
+    // game rating
+    const rating = document.createElement('p');
+    rating.className = 'game-rating';
+    rating.textContent = `Rating: ${game.rating ?? 'N/A'}/10`;
+
+    info.append(title, id, details, rating);
+
+    row.appendChild(info);
+
+    output.appendChild(row);
+  });
+}
 
       document
         .querySelector('#getAll')
@@ -166,20 +228,21 @@
 
         const response =
           await fetch(
-            '/api/items'
+            '/api/games'
           );
 
         const data =
           await response.json();
 
-        document
-          .querySelector('#output08')
-          .textContent =
-          JSON.stringify(
-            data,
-            null,
-            2
-          );
+          displayGames(data, '#output08');
+        // document
+        //   .querySelector('#output08')
+        //   .textContent =
+        //   JSON.stringify(
+        //     data,
+        //     null,
+        //     2
+        //   );
 
       }
 
@@ -187,8 +250,8 @@
   </div>
 
   <div id="iss09">
-    <h1>iss09. get one</h1>
-    <input id="aRealId">
+    <h1>Search Game</h1>
+    <input id="aRealId" placeholder="Enter game title here">
     <button id="getOne">get one</button>
     <pre id="output09"></pre>
 
@@ -200,26 +263,22 @@
         getOne
       );
 
-      async function getOne() {
+async function getOne() {
+  const title = document.querySelector('#aRealId').value.trim();
 
-        const id = document.querySelector('#aRealId').value;
+  const response = await fetch(
+    `/api/games/${encodeURIComponent(title)}`
+  );
 
-        const response =
-          await fetch(
-            `/api/items/${id}`
-          );
+  const data = await response.json();
 
-        const data =
-          await response.json();
+  if (!response.ok || !data) {
+    document.querySelector('#output09').textContent =
+      'Game not found.';
+    return;
+  }
 
-        document
-          .querySelector('#output09')
-          .textContent =
-          JSON.stringify(
-            data,
-            null, // replacer: don't filter or modify anything
-            2 // space: pretty-print with 2-space indentation
-          );
+  displayGames(data, '#output09');
 
       };
 
@@ -230,10 +289,10 @@
   </div>
 
   <div id="iss10">
-    <h1>iss10. filter</h1>
+    <h1>Filter Games Based on Platform</h1>
 
-    <label for="category">Category:</label>
-    <input id="category" placeholder="one">
+    <label for="platform">Platform:</label>
+    <input id="platform" placeholder="Enter a platform here">
     <button id="getFilter">Filter</button>
     <pre id="output10"></pre>
     <script>
@@ -242,86 +301,159 @@
         .querySelector('#getFilter')
         .addEventListener('click', getItems);
 
-      async function getItems() {
+async function getItems() {
+  const platform = document.querySelector('#platform').value.trim();
 
-        const category =
-          document.querySelector('#category').value;
+  const response = await fetch(
+    `/api/games?platform=${encodeURIComponent(platform)}`
+  );
 
-        const url =
-          `/api/items?category=${category}`;
+  const data = await response.json();
 
-        const response =
-          await fetch(url);
-
-        const data =
-          await response.json();
-
-        document.querySelector('#output10').textContent =
-          JSON.stringify(data, null, 2);
-      }
+  displayGames(data, '#output10');
+}
     </script>
 
 
   </div>
 
-  <div id="iss11">
-    <h1>iss11. create item</h1>
-    <button id="createItem">create item</button>
-    <pre id="output11"></pre>
+<div id="iss11">
+  <h1>Create a Video Game</h1>
 
-    <script>
+  <form id="gameForm">
+    <label for="gameTitle">Game Title:</label>
+    <input
+      id="gameTitle"
+      type="text"
+      placeholder="Enter game title"
+      required
+    >
 
-      document.querySelector('#createItem').addEventListener('click', createItem);
+    <br><br>
 
-      async function createItem() {
+    <label for="gamePlatform">Platform:</label>
+    <input
+      id="gamePlatform"
+      type="text"
+      placeholder="Enter platform"
+      required
+    >
 
-        const newItem = {
-          name: 'delta',
-          category: 'three'
+    <br><br>
+
+    <label for="gameGenre">Genre:</label>
+    <input
+      id="gameGenre"
+      type="text"
+      placeholder="Enter genre"
+      required
+    >
+
+    <br><br>
+
+    <label for="gameRating">Rating (0-10):</label>
+    <input
+      id="gameRating"
+      type="text"
+      placeholder="Enter rating"
+      required
+    >
+
+    <br><br>
+
+    <label for="gameImage">Image URL:</label>
+    <input
+      id="gameImage"
+      type="text"
+      placeholder="Enter image URL"
+      required
+    >
+
+    <br><br>
+
+    <button type="submit">Add Game</button>
+  </form>
+
+  <pre id="output11"></pre>
+
+  <script>
+    document.querySelector('#gameForm')
+      .addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const newGame = {
+          title: document.querySelector('#gameTitle').value.trim(),
+          platform: document.querySelector('#gamePlatform').value.trim(),
+          genre: document.querySelector('#gameGenre').value.trim(),
+          rating: Number(document.querySelector('#gameRating').value),
+          image: document.querySelector('#gameImage').value.trim()
         };
 
-        const response = await fetch('/api/items', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newItem)
-        });
+        try {
+          const response = await fetch('/api/games', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newGame)
+          });
 
-        const data = await response.json();
+          const data = await response.json();
 
-        document.querySelector('#output11').textContent =
-          JSON.stringify(data, null, 2);
-      }
-    </script>
-  </div>
+          if (!response.ok) {
+            throw new Error(data.error || 'Failed to add game');
+          }
+
+          document.querySelector('#output11').textContent =
+            'Game added successfully!\n';
+
+          document.querySelector('#gameForm').reset();
+
+        } catch (error) {
+          document.querySelector('#output11').textContent =
+            'Error: ' + error.message;
+        }
+      });
+  </script>
+</div>
+
 
   <div class="iss12">
 
-    <h1>iss12. update category</h1>
-    <input id="updatedId" placeholder="paste an id here">
-    <input id="newCategory" placeholder="new category">
-    <button id="updateCategory">update category</button>
+    <h1>Update Game Genre</h1>
+    <input id="updatedId" placeholder="Paste an id here">
+    <input id="newCategory" placeholder="Genre">
+    <button id="updateCategory">update genre</button>
     <pre id="output12"></pre>
 
     <script>
-      document.querySelector('#updateCategory').addEventListener('click', updateCategory);
+document.querySelector('#updateCategory')
+  .addEventListener('click', updateGenre);
 
-      async function updateCategory() {
-        const category = document.querySelector('#newCategory').value || 'new category';
-        const changes = { category: `${category}` };
-        const id = document.querySelector('#updatedId').value;
-       
-        const response = await fetch(`/api/items/${id}`,
-          {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(changes)
-          });
+async function updateGenre() {
+  const id = document.querySelector('#updatedId').value.trim();
+  const genre = document.querySelector('#newCategory').value.trim();
+  const output = document.querySelector('#output12');
 
-        const data = await response.json();
+  try {
+    const response = await fetch(`/api/games/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ genre })
+    });
 
-        document.querySelector('#output12').textContent =
-          JSON.stringify(data, null, 2);
-      };
+    const data = await response.json();
+
+    if (!response.ok || data.matchedCount === 0) {
+      output.textContent = 'Game not found. Genre was not updated.';
+      return;
+    }
+
+    output.textContent = '✅ Game genre updated successfully!';
+  } catch (error) {
+    output.textContent = '❌ Error updating game genre.';
+  }
+};
 
 
     </script>
@@ -329,27 +461,43 @@
   </div>
 
   <div id="iss20">
-    <h1>iss13. delete one</h1>
-    <input id="deleteId" placeholder="paste an id here">
-    <button id="deleteItem">delete item</button>
+    <h1>Delete Game</h1>
+    <input id="deleteId" placeholder="Paste an id here">
+    <button id="deleteItem">delete game</button>
     <pre id="output13"></pre>
 
     <script>
-      document.querySelector('#deleteItem').addEventListener('click', deleteItem);
+document.querySelector('#deleteItem')
+  .addEventListener('click', deleteItem);
 
-      async function deleteItem() {
-        const id = document.querySelector('#deleteId').value;
-        const response = await fetch(`/api/items/${id}`, { method: 'DELETE' });
-        const data = await response.json();
-        document.querySelector('#output13').textContent = JSON.stringify(data, null, 2);
-      };
+async function deleteItem() {
+  const id = document.querySelector('#deleteId').value.trim();
+  const output = document.querySelector('#output13');
+
+  try {
+    const response = await fetch(`/api/games/${id}`, {
+      method: 'DELETE'
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || data.deletedCount === 0) {
+      output.textContent = 'Game not found. Nothing was deleted.';
+      return;
+    }
+
+    output.textContent = '✅ Game deleted successfully!';
+  } catch (error) {
+    output.textContent = '❌ Error deleting game.';
+  }
+};
     </script>
 
 
   </div>
 
 
-  <div id="iss15">
+  <!-- <div id="iss15">
 <h1>issue 15</h1>
     <pre>
 username
@@ -403,7 +551,7 @@ password
 
     </script>
 
-  </div>
+  </div> -->
 </body>
 
 </html>
