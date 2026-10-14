@@ -150,13 +150,12 @@
   <div id="iss08">
     <h1>All Games</h1>
 
-    <button id="getAll"> get all</button>
+    <button id="getAll"> get all games</button>
 
     <pre id="output08"></pre>
 
     <script>
 
-          // Add this function first
 
 function displayGames(games, outputId) {
   const output = document.querySelector(outputId);
@@ -175,7 +174,7 @@ function displayGames(games, outputId) {
     const row = document.createElement('div');
     row.className = 'game-row';
 
-    // Game cover image
+    // game picture
     if (game.image) {
       const image = document.createElement('img');
       image.src = game.image;
@@ -186,37 +185,34 @@ function displayGames(games, outputId) {
       row.appendChild(image);
     }
 
-    // Game information container
+    // game info
     const info = document.createElement('div');
     info.className = 'game-info';
 
-    // Game title
+    // game title
     const title = document.createElement('h2');
     title.textContent = game.title || 'Untitled game';
 
-    // MongoDB ID
+    // game ID
     const id = document.createElement('p');
     id.className = 'game-id';
     id.textContent = `ID: ${game._id || 'Not available'}`;
 
-    // Platform and genre
+    // game platform and genre
     const details = document.createElement('p');
     details.textContent =
       `Platform: ${game.platform || 'Unknown'} | ` +
       `Genre: ${game.genre || 'Unknown'}`;
 
-    // Rating
+    // game rating
     const rating = document.createElement('p');
     rating.className = 'game-rating';
     rating.textContent = `Rating: ${game.rating ?? 'N/A'}/10`;
 
-    // Add all information to the container
     info.append(title, id, details, rating);
 
-    // Add the container to the game row
     row.appendChild(info);
 
-    // Add the game row to the output
     output.appendChild(row);
   });
 }

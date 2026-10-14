@@ -116,7 +116,7 @@ app.get('/api/games/:title', async function (req, res) {
 }
 );
 
-//iss 11, notice post to slash api/games != get to slash of same name
+//iss 11
 app.post('/api/games', async function(req, res) {
     const newItem = req.body;
     const result = await collection.insertOne(newItem);

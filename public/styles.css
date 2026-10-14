@@ -1,4 +1,4 @@
-/* ===== General page styling ===== */
+
 * {
   box-sizing: border-box;
 }
@@ -10,9 +10,7 @@ body {
   color: #e5e7eb;
   min-height: 100vh;
 
-  /* Background image */
 background-image:
-linear-gradient(rgba(5, 10, 25, 0.75), rgba(5, 10, 25, 0.85)),
 url("/images/game-background.jpg");
 
 background-size: cover;
@@ -34,7 +32,6 @@ body::before {
   text-align: center;
 }
 
-/* ===== Issue 7: top-left corner ===== */
 #iss07 {
   position: absolute;
   top: 15px;
@@ -56,7 +53,6 @@ body::before {
   margin-top: 0;
 }
 
-/* ===== Main sections ===== */
 #iss08,
 #iss09,
 #iss10,
@@ -80,7 +76,6 @@ body::before {
   text-align: center;
 }
 
-/* ===== Headings ===== */
 h1 {
   color: #24309b;
   font-size: 31px;
@@ -90,7 +85,6 @@ h2 {
   color: #280072;
 }
 
-/* ===== Inputs ===== */
 input {
   max-width: 100%;
   padding: 11px;
@@ -109,7 +103,6 @@ input:focus {
   outline: 2px solid #1411bd;
 }
 
-/* ===== Buttons ===== */
 button {
   padding: 10px 15px;
   margin: 5px;
@@ -135,7 +128,6 @@ button:hover {
   background-color: #dc2626;
 }
 
-/* ===== Game results ===== */
 #output08,
 #output09,
 #output10 {
@@ -148,7 +140,6 @@ button:hover {
   white-space: normal;
 }
 
-/* Keep every game in a consistent row */
 .game-row {
   display: flex;
   align-items: center;
@@ -161,7 +152,6 @@ button:hover {
   border-bottom: none;
 }
 
-/* Give every cover the same dimensions */
 .game-image {
   display: block;
   flex: 0 0 120px;
@@ -195,7 +185,6 @@ button:hover {
   font-weight: bold;
 }
 
-/* ===== Create game form ===== */
 #gameForm {
   display: flex;
   flex-direction: column;
@@ -212,7 +201,6 @@ button:hover {
   align-self: flex-start;
 }
 
-/* ===== Mobile layout ===== */
 @media (max-width: 900px) {
   body {
     padding: 15px;
